@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityOcr"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OcrActivity">
+
+    <RelativeLayout
+        android:id="@+id/imageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sample" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/OCRButtonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageContainer"
+        android:background="#aaa"
+        android:clickable="true"
+        android:onClick="processImage">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:onClick="processImage"
+            android:text="RUN OCR"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/OCRButtonContainer">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여기에 결과 출력"
+            android:id="@+id/OCRTextView"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="#fff" />
+    </RelativeLayout>
+
+</RelativeLayout>
