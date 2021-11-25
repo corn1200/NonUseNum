@@ -58,14 +58,10 @@ public class OcrActivity extends AppCompatActivity {
             AssetManager assetManager = getAssets();
             InputStream inputStream = assetManager.open("tessdata/eng.traineddata");
             OutputStream outputStream = new FileOutputStream(filePath);
-            int arrLength = Integer.parseInt(
-                    (Build.VERSION_CODES.BASE + Build.VERSION_CODES.GINGERBREAD) +
-                            Integer.toString(Build.VERSION_CODES.N));
             byte[] buffer = new byte[1024];
             int read;
             while ((read = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer,
-                        0, read);
+                outputStream.write(buffer, 0, read);
             }
             outputStream.flush();
             outputStream.close();
@@ -78,12 +74,12 @@ public class OcrActivity extends AppCompatActivity {
     }
 
     private void checkFile(File file) {
-        if (!file.exists() && file.mkdir()) {
+        if (!file.exists() && file.mkdirs()) {
             copyFiles();
         }
 
         if (file.exists()) {
-            String dataFilePath = dataPath + "/tessdata/eng.traineddata";
+            String dataFilePath = dataPath + "tessdata/eng.traineddata";
             File dataFile = new File(dataFilePath);
             if (!dataFile.exists()) {
                 copyFiles();
