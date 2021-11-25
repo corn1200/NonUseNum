@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:src="@drawable/sample" />
     </RelativeLayout>
 
@@ -25,16 +25,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageContainer"
         android:background="#aaa"
-        android:clickable="true"
-        android:onClick="processImage">
+        android:clickable="true">
 
         <TextView
+            android:id="@+id/executeOCRBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:clickable="true"
-            android:onClick="processImage"
             android:text="RUN OCR"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="#fff" />

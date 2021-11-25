@@ -5,10 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 
@@ -24,6 +25,8 @@ public class OcrActivity extends AppCompatActivity {
     private TessBaseAPI mTess;
     String dataPath = "";
     TextView OCRTextView;
+    TextView exeOCRBtn;
+    BackgroundTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,11 @@ public class OcrActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ocr);
 
         OCRTextView = findViewById(R.id.OCRTextView);
+        exeOCRBtn = findViewById(R.id.executeOCRBtn);
+        exeOCRBtn.setOnClickListener(v -> {
+            task = new BackgroundTask();
+            task.execute();
+        });
 
         image = BitmapFactory.decodeResource(getResources(), R.drawable.sample);
 
@@ -42,14 +50,6 @@ public class OcrActivity extends AppCompatActivity {
 
         mTess = new TessBaseAPI();
         mTess.init(dataPath, lang);
-    }
-
-    public void processImage(View view) {
-        String OCRResult = null;
-        mTess.setImage(image);
-        OCRResult = mTess.getUTF8Text();
-
-        OCRTextView.setText(OCRResult);
     }
 
     private void copyFiles() {
@@ -84,6 +84,31 @@ public class OcrActivity extends AppCompatActivity {
             if (!dataFile.exists()) {
                 copyFiles();
             }
+        }
+    }
+
+    class BackgroundTask extends AsyncTask<View, String, Void> {
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+            Toast.makeText(OcrActivity.this, "완료됨", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            OCRTextView.setText(values[0]);
+        }
+
+        @Override
+        protected Void doInBackground(View... views) {
+            String OCRResult = null;
+            mTess.setImage(image);
+            OCRResult = mTess.getUTF8Text();
+
+            publishProgress(OCRResult);
+            return null;
         }
     }
 }
